@@ -1,0 +1,103 @@
+
+body{
+	margin: 0px;
+	padding: 0px;
+}
+
+/* 表格样式 */
+table{
+	border-collapse: collapse; /* 边线收缩 */
+	table-layout: fixed ;  /* 自动布局还是固定宽度 */
+	word-break: break-all; /* 换行设定 */
+	word-wrap:break-word;  /* 换行折断设定 */
+}
+
+/* 逗号表示同时指定多个目标的样式 */
+table,td,th{
+	border: 1px solid #888;
+	text-align: center;
+}
+
+a{
+	text-decoration: none;
+	color: #2965B1;
+}
+
+input[type='text']{
+	padding: 4px;
+	border-radius:4px;
+	border: 1px solid #ccc;
+	outline: none;
+}
+
+button{
+	padding: 4px 8px;
+	outline: none;
+	background-color: #fcfcfc;
+	border-radius:4px;
+	border: 1px solid #ccc;
+}
+button.primary{
+    background-color: #dc7c0b;
+    color: #EEE;
+    border: 1px solid #d6914d;
+}
+
+/* 主容器 */
+.container{
+	width:700px;
+	margin: 0px auto auto auto;
+}
+
+/* 一行 */
+.row{
+	margin: 14px 0px;
+}
+
+/* 顶部 */
+.top{
+	background-color: #f1f3f1;
+    border-bottom: 1px solid #D1D1D1;
+    padding: 10px;
+    color: #f19f63;
+}
+
+/* 内容区 */
+.content{
+	min-height: 350px;
+}
+
+/* 底部 */
+.bottom{
+	border-top: 1px solid #ccc;
+	padding: 18px;
+	text-align: center;
+	color: #555;
+}
+
+/* heading: 标题 */
+.heading{
+	border-left: 2px solid #f19f63;
+	padding-left: 8px;
+	color:#555;
+	margin: 20px 0;
+}
+
+
+/* 页码区 */
+.page-index-bar{
+	margin: 40px 0 60px 0;
+	text-align: center;
+}
+.page-index-bar .page{
+	display: inline-block;
+	text-align: center;
+	background-color: #ea9518;
+	color: #fff;
+	margin: 0px 4px;
+	padding: 4px 10px;
+	border-radius: 10px;
+}
+.page-index-bar .static{
+	background-color: #888;
+}

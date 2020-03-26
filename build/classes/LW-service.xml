@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<!-- 示例
+	<service name="Hello" class="com.coffee.HelloDo" /> 
+	<upload name="FileUpload" class="com.coffee.Uploader" /> 
+	-->
+	
+	<!-- FileUpload.up
+	<upload name="FileUpload" class="com.coffee.servlet.Uploader" />
+	 -->
+	<upload name="ImageUpload" class="com.coffee.upload.ImageUploader" /> 
+	<service name="ImageSave" class="com.coffee.upload.ImageSaveDo" />	
+	<service name="ImageQuery" class="com.coffee.upload.ImageQueryDo" />
+	<service name="ImageView" class="com.coffee.upload.ImageViewDo" />
+</config>

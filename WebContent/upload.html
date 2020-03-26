@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title> 上传图片 </title>
+		
+		<link rel="stylesheet" href="css/common.css" />
+		<script type="text/javascript" src="js/jquery.js" ></script>
+		<script type="text/javascript" src="js/lwquery.js" ></script>
+		
+	</head>
+	<body>
+	<div class='container'>
+		
+		<div class='top'>
+			我的图片库
+		</div>
+		
+		<div class='row navigation'>
+			<a href='index.html'> 首页 </a> >> 上传图片
+		</div>
+		
+		<div class='content'>
+			
+			<div class='row'>
+				<input type='file' class='filebutton' style='display:none'  />
+				<button onclick='up.openFileDialog()'> 选择图片 </button>
+			</div>		
+			<div class='row' style='min-height:240px'>
+				<img class='frame' style='max-width: 240px; max-height:240px;'>
+			</div>
+			<div class='row'> 
+				<label> 标签 </label>
+				<input class='tag' type='text' style='width:200px'/>
+			</div>
+			
+			<div class='row'> 
+				<button class='primary' onclick='M.save()'> 保存 </button>
+			</div>			
+		</div>
+		
+		<div class='bottom'>
+			图片库项目
+		</div>
+	</div>
+	</body>
+	
+	<script>
+		var M = {};
+		
+		M.save = function(){
+			if(up.result == null){
+				alert('请先上传'); return;
+			}
+			
+			var req = {};
+			req.tmpPath = up.result.storePath; // up.result
+			req.tag = $('.tag').val();
+			req.realName = up.file.name;
+			req.size = up.file.size;
+			LW.rest('ImageSave.do', req, function(data){
+				location.href = 'index.html';
+			})
+		}
+		
+	</script>
+	<script>
+		// 初始化
+		var up = new LWUploader();
+		up.setButton('.filebutton');  // 设置file input控件
+		up.setUploadUrl('ImageUpload.up'); // 设置服务URL
+		up.setLogEnabled( false );
+		
+		// 事件处理 'start' 'progress' 'complete' 'error' 'abort'
+		up.processEvent = function(event)
+		{
+			if(event == 'progress')
+			{
+				LW.log("进度: " + this.progress);
+			}
+			else if(event == 'complete')
+			{
+				LW.log("完成上传");
+				LW.log(this.response);
+				
+				var jresp = JSON.parse (this.response); 
+				var url  = jresp.data.url;
+				$('.frame').attr('src', url);
+				
+				//
+				this.result = jresp.data;
+			}
+		};
+		
+		// 是否允许上传
+		up.beforeUpload = function()
+		{
+			var type = this.file.type;
+			if(type != "image/jpeg" && type != "image/png")
+			{
+				alert("只支持jpeg和png图片!");
+				return false;
+			}
+			return true;
+		};
+	
+		
+	</script>
+</html>

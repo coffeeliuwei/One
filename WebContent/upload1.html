@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title> 上传图片 </title>
+
+		<link rel="stylesheet" href="css/common.css" />
+		<script type="text/javascript" src="js/lwquery.js"></script>
+		<script type="text/javascript" src="js/jquery.js" ></script>
+		
+	</head>
+	<body>
+	<div class='container'>
+		
+		<div class='top'>
+			我的图片库
+		</div>
+		
+		<div class='row navigation'>
+			<a href='index.html'> 首页 </a> > 上传图片
+		</div>
+		
+		<div class='content'>
+			
+			<div class='row'>
+				<input type='file' class='filebutton' style='display:none'  />
+				<button onclick='up.openFileDialog()'> 选择图片 </button>
+			</div>		
+			<div class='row'>
+				<img class='frame' style='max-width: 300px; max-height:300px;'>
+			</div>
+			
+		</div>
+		
+		<div class='bottom'>
+			图片系统
+		</div>
+	</div>
+	</body>
+	
+	<script>
+		// 初始化
+		var up = new LWUploader();
+		up.setButton('.filebutton');  // 设置file input控件
+		up.setUploadUrl('ImageUpload.up'); // 设置服务URL
+		up.setLogEnabled( false );
+		
+		// 事件处理 'start' 'progress' 'complete' 'error' 'abort'
+		up.processEvent = function(event)
+		{
+			if(event == 'progress')
+			{
+				LW.log("进度: " + this.progress);
+			}
+			else if(event == 'complete')
+			{
+				LW.log("完成上传");
+				LW.log(this.response);
+				
+				var jresp = JSON.parse (this.response); 
+				var url  = jresp.data.url;
+				$('.frame').attr('src', url);
+			}
+		};
+		
+		// 是否允许上传
+		up.beforeUpload = function()
+		{
+			var type = this.file.type;
+			if(type != "image/jpeg" && type != "image/png")
+			{
+				alert("只支持jpeg和png图片!");
+				return false;
+			}
+			return true;
+		};
+	
+		
+	</script>
+</html>

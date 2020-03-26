@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>图片检索系统</title>
+		
+		<link rel="stylesheet" href="css/common.css" />
+		<script type="text/javascript" src="js/jquery.js" ></script>
+		<script type="text/javascript" src="js/lwquery.js" ></script>
+		
+		<style>
+			.content .row label{
+				color: #888;	
+				padding-right: 4px;			
+			}
+			.content .row span{
+				color: #333;
+			}
+			.content .row img{
+				max-width:500px;
+			}
+		</style>
+	</head>
+	<body>
+	<div class='container'>
+		<div class='top'>
+			我的图片库
+		</div>
+
+		<div class='row navigation'>
+			<a href='index2.html'> 首页 </a> >> 图片查看
+		</div>
+		
+		<div class='content' style='margin-top: 50px'>
+			<div class='row'>
+				<label>名称: </label>
+				<span class='realName'></span>
+			</div>
+			<div class='row'>
+				<label>大小: </label>
+				<span class='size'></span>
+			</div>
+			<div class='row'>
+				<label>标签: </label>
+				<span class='tag'></span>
+			</div>
+			<div class='row'>
+				<img class='frame' />
+			</div>
+			
+			<div class='row'>
+				<button> 删除 </button>
+			</div>
+			
+		</div>
+				
+		<div class='bottom'>
+		     图片库项目
+		</div>	
+		
+	</div></body>
+	
+	<script>
+		var M = {};
+		
+		M.query = function()
+		{
+			var id = LW.getUrlParam('id', '0'); // 从URL里获取参数
+			
+			var req = {};
+			req.id = Number(id); // String -> Number 转换
+			
+			LW.rest('ImageView.do', req, function(data){			
+				$('.realName').html( data.realName);
+				$('.size').html(data.size);
+				$('.tag').html(data.tag);
+				$('.frame').attr('src', data.url);
+			})
+		}
+			
+		// 初始化执行
+		M.init = function(){
+			
+			M.query();
+			
+		}();
+		
+		
+	</script>
+</html>

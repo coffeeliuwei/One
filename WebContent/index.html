@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>图片检索系统</title>
+		
+		<link rel="stylesheet" href="css/common.css" />
+		<script type="text/javascript" src="js/jquery.js" ></script>
+		<script type="text/javascript" src="js/lwquery.js" ></script>
+		
+		<style>
+			.content .item-list{
+				min-height: 240px;
+			}
+			.content .item{
+				display: inline-block;	
+			}
+			.content .item:hover{
+				background-color: #f19f63;
+			}
+			.content .item img{
+				vertical-align: middle;
+				max-width: 150px;
+				max-height: 150px;	
+				margin: 5px;
+			}
+		</style>
+	</head>
+	<body>
+	<div class='container'>
+		<div class='top'>
+			我的图片库
+		</div>
+
+		<div class='row navigation'>
+			<a href='upload.html'> 添加图片 </a> 
+		</div>
+		
+		<div class='content' style='margin-top: 50px'>	
+			<div class='heading'> 最新图片 </div>
+			<div class='item-list'> </div>
+			
+			<div class='page-index-bar'></div>
+		</div>
+		
+		
+		<div class='bottom'>
+			 图片库项目
+		</div>	
+		
+	</div></body>
+	
+	<script>
+		var M = {};
+		
+		M.query = function()
+		{
+			var p = LW.getUrlParam('p', '1'); // URL里获取页码
+			var req = {};
+			req.pageNumber = Number(p); // String -> Number 转换
+			LW.rest('ImageQuery.do', req, function(data){
+				M.showItemList (data.items);// 显示内容
+  				M.showPageIndex( data.pageNumber, data.pageCount); // 显示页码
+			})
+		}
+	
+		/* 显示内容 */
+		M.showItemList = function(items)
+		{
+			var target = $('.item-list');
+			target.html('');
+			for(var i=0;i<items.length; i++)
+			{
+				var it = items[i];
+				// 拼凑一段HTML
+				var str = "<div class='item' iid='##1'>"
+					+ "<img src='##2' title='##3' >"
+					+ "</div>"
+					;
+				// 正则替换, 将##1字样替换为 it.id值
+				str = str.replace(/##1/g, it.id)
+					.replace(/##2/g, it.url)
+					.replace(/##3/g, it.realName)
+					;
+				// 更新显示
+				target.append( str );
+			}
+		}
+
+		/* 显示页码 */
+		M.showPageIndex = function(pageNumber, pageCount)
+		{
+			var str = "";			
+			var skipped = false;
+			for(var i=1; i<=pageCount; i++)
+			{
+				// 如果页面数过多，则添加一个省略号
+				if(i< pageNumber - 2 && i >= 2)
+				{
+					if(!skipped ) str += "...";
+					skipped = true;
+					continue;
+				}
+				if(i> pageNumber + 2 && i <= pageCount - 1)
+				{
+					if(!skipped ) str += "...";
+					skipped = true;
+					continue;
+				}
+				skipped = false;
+				
+				
+				// 当前页码： 以高亮显示
+				if(i == pageNumber)
+					str += "<label class='page static'> ##1 </label>".replace(/##1/g, i);
+				else
+					str += "<a class='page' href='index.html?p=##1'> ##1 </a>".replace(/##1/g, i);
+				
+				$('.page-index-bar').html(str);					
+			}
+		}
+		
+		
+		// 初始化执行
+		M.init = function(){
+			
+			M.query();
+			
+		}();
+		
+		
+	</script>
+</html>
