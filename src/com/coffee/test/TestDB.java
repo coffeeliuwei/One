@@ -15,7 +15,7 @@ public class TestDB
 		row.setName("test");
 		row.setRealName("美丽风景.jpg");
 		row.setSize(120340L);
-		row.setStorePath("data/19230934.jpg");
+		row.setStorePath("data/111111.jpg");
 		row.setTag("风景");
 		row.setTimeCreated(new Date());
 		row.setTimeModified(new Date());

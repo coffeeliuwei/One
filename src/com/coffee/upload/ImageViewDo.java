@@ -37,7 +37,7 @@ public class ImageViewDo extends RestfulDo
 		
 		Map<String, Object> jresp =FormData.pojo2Map(row);;	
 		String contextPath = httpReq.getContextPath();
-		String url = contextPath + row.storePath;
+		String url = contextPath+"/store/" + row.storePath;
 		jresp.put("url", url);		
 		
 		return jresp;

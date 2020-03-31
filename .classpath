@@ -21,6 +21,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/json-org.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mchange-commons-java-0.2.11.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mysql-connector-java-5.1.45-bin.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/LW-1.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/LW-1.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

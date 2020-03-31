@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import com.coffee.web.restful.RestfulDo;
 import com.coffee.DB.DB;
+import com.coffee.download.Store;
 import com.coffee.entity.Picture;
 import com.google.gson.JsonObject;
 
@@ -56,12 +57,12 @@ public class ImageSaveDo extends RestfulDo
 		String fileName = srcFile.getName();
 		
 		// 目标目录
-		File dstDir = new File(docBaseDir, "data");
-		dstDir.mkdirs();
+		File dstFile = Store.getFile(fileName);
+		dstFile.getParentFile().mkdirs();
 		
 		
-		FileUtils.moveFileToDirectory(srcFile, dstDir, true);
+		FileUtils.moveFile(srcFile, dstFile);
 		
-		return "/data/" + fileName;
+		return fileName;
 	}
 }

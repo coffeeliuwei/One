@@ -4,8 +4,6 @@ import com.coffee.mysql.annotation.COLUMNS;
 import com.coffee.mysql.annotation.TABLE; 
 import java.util.Date; 
 
-// 本类由 【POJO生成器】 自动生成 ：2019-06-25 14:32:22
-
 @TABLE(name="picture")  
 @COLUMNS(auto=true,generated="id") 
 public class Picture 
